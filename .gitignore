@@ -1,0 +1,7 @@
+KeyboardAutoLang
+.DS_Store
+*.log
+rules.json
+memory.json
+backup-*/
+__pycache__/
