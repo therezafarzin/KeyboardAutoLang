@@ -33,4 +33,9 @@ config={'Label':'local.keyboardautolang','ProgramArguments':[str(exe)],'RunAtLoa
 with agent.open('wb') as f: plistlib.dump(config,f)
 subprocess.run(['/usr/bin/plutil','-lint',str(agent)],check=True)
 subprocess.run(['/bin/launchctl','bootstrap',f'gui/{os.getuid()}',str(agent)],check=True)
+# Refresh Finder's cached bundle icon after copying/signing the resources.
+app.touch()
+registrar=Path('/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister')
+if registrar.exists():
+ subprocess.run([str(registrar),'-f',str(app)],check=False)
 print(f'Installed: {app}\nBackup: {backup}')
