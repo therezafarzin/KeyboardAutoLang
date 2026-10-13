@@ -13,7 +13,7 @@ if compiler.returncode:
 subprocess.run([compiler.stdout.strip(),'-O','-swift-version','5','-framework','AppKit','-framework','Carbon',str(source/'main.swift'),str(source/'Panel.swift'),'-o',str(source/'KeyboardAutoLang')],check=True)
 backup=support/('backup-'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
 backup.mkdir(parents=True,exist_ok=True)
-if app.exists(): shutil.copytree(app,backup/'Keyboard AutoLang.app')
+if app.exists(): shutil.copytree(app,backup/'Keyboard AutoLang.app.backup')
 for p in [agent,support/'KeyboardAutoLang',support/'KeyboardAutoLang.swift', support/'rules.json']:
  if p.exists(): shutil.copy2(p,backup/p.name)
 subprocess.run(['/bin/launchctl','bootout',f'gui/{os.getuid()}/local.keyboardautolang'],capture_output=True)
